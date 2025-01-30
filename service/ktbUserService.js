@@ -1,4 +1,4 @@
-const { KtbUser } = require('../model');
+const { KtbUser } = require('../models');
 
 const getAllKtbUsers = async () => {
   return await KtbUser.findAll();

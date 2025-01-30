@@ -1,3 +1,6 @@
+
+const bcrypt = require('bcrypt');
+
 module.exports = (sequelize, DataTypes) => {
   const KtbUser = sequelize.define('KtbUser', {
     email: {
@@ -38,6 +41,11 @@ module.exports = (sequelize, DataTypes) => {
     additional_info: {
       type: DataTypes.JSON,
     },
+  });
+  // 비밀번호 해싱 처리
+  KtbUser.beforeCreate(async (user) => {
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(user.password, salt);
   });
 
   return KtbUser;
